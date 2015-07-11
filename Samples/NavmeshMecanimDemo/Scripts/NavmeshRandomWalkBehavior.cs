@@ -11,7 +11,7 @@ public class NavmeshRandomWalkBehavior : ABehavior
 	protected Animator			animator;
 	protected Locomotion 		locomotion;
 
-	protected void SetDestination (Vector3 pos)
+	public void SetDestination (Vector3 pos)
 	{
 		agent.destination = pos;
 	}
@@ -39,7 +39,9 @@ public class NavmeshRandomWalkBehavior : ABehavior
 	{
 		if (AgentDone ()) {
 			locomotion.Do (0, 0);
-			target = sps [Random.Range (0, sps.Length)].transform;
+			SpawningPoint[] orderd = sps.OrderBy(x=>Vector3.Distance(x.transform.position, transform.position)).ToArray();
+
+			target = orderd [Random.Range (1, orderd.Length)].transform;
 			SetDestination (target.position);
 		} else {
 

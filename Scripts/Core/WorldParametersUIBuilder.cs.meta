@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 3067529642a12404aba9b6cb01771519
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - sliderPrefab: {fileID: 11483928, guid: 4e07d76cd5ef243c19b6b6922081c9c3, type: 2}
+  - panelPrefab: {fileID: 22417210, guid: 2415ee1118d7f4982bef5e29bee99836, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

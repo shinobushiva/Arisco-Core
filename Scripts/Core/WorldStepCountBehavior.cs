@@ -11,6 +11,8 @@ public class WorldStepCountBehavior : WorldBehavior
 		}
 	}
 
+	public bool showStepCount = false;
+
 	
 	public override void Begin ()
 	{
@@ -24,7 +26,8 @@ public class WorldStepCountBehavior : WorldBehavior
 	
 	void OnGUI ()
 	{
-		GUI.Label (new Rect (Screen.width - 200, 0, 200, 40), "" + stepCount);
+		if(showStepCount)
+			GUI.Label (new Rect (Screen.width - 200, 0, 200, 40), "" + stepCount);
 	}
 	
 }

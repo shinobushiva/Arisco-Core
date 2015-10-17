@@ -13,7 +13,8 @@ public class NavmeshRandomWalkBehavior : ABehavior
 
 	public void SetDestination (Vector3 pos)
 	{
-		agent.destination = pos;
+		if (agent.isOnNavMesh)
+			agent.destination = pos;
 	}
 
 	void Initialize ()
@@ -32,7 +33,7 @@ public class NavmeshRandomWalkBehavior : ABehavior
 		animator = GetComponent<Animator> ();
 		locomotion = new Locomotion (animator);
 		target = transform;
-		SetDestination (target.position);
+//		SetDestination (target.position);
 	}
 
 	protected void SetupAgentLocomotion ()
@@ -56,6 +57,9 @@ public class NavmeshRandomWalkBehavior : ABehavior
 	
 	protected bool AgentDone ()
 	{
+		if (!agent.isOnNavMesh)
+			return true;
+
 		return !agent.pathPending && AgentStopping ();
 	}
 	

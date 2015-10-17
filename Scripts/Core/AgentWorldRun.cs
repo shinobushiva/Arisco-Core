@@ -8,8 +8,7 @@ public class AgentWorldRun : SingletonMonoBehaviour<AgentWorldRun>
 	public World world;
 
 	[HideInInspector]
-	public CellAutomatonWorldRunner
-		runner;
+	public CellAutomatonWorldRunner runner;
 	private GameObject worldCopy;
 	
 	public IEnumerator Start ()

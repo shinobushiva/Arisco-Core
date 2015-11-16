@@ -21,7 +21,7 @@ public class NavmeshRandomWalkBehavior : ABehavior
 	{
 		agent = GetComponent<NavMeshAgent> ();
 		agent.updateRotation = false;
-		agent.updatePosition = false;
+		agent.updatePosition = true;
 
 		sps = FindObjectsOfType<SpawningPoint> ();
 	}

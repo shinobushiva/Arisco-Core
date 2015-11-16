@@ -29,7 +29,9 @@ public class WalkerCreationWorldBehavior : WorldBehavior
 			NavMeshAgent nma = a.GetComponent<NavMeshAgent> ();
 			if (nma)
 				nma.enabled = false;
+
 			a.transform.position = sps [i].transform.position;
+
 			if (nma)
 				nma.enabled = true;
 

@@ -3,16 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(AAgent))]
-[RequireComponent(typeof(CharacterController))]
 public class MecanimStepBehavior : ABehavior
 {
 	protected Animator avatar;
-	protected CharacterController controller;
 	
 	void Initialize ()
 	{
 		avatar = GetComponent<Animator> ();
-		controller = GetComponent<CharacterController> ();
 
 		avatar.StartPlayback ();
 		avatar.speed = 0;

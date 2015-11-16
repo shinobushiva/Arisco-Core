@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class MecanimStepBehavior : ABehavior
 {
 	protected Animator avatar;
+	protected NavMeshAgent agent;
 	
 	void Initialize ()
 	{

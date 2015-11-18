@@ -109,13 +109,7 @@ public class PlayControl : SingletonMonoBehaviour<PlayControl>
 
 	}
 
-
-    public bool useOldUI = true;
-	 
-	
 	void Start(){
-		if(AriscoGUI.Instance)
-			AriscoGUI.Instance.AddGUIFunc(DrawGUI);
 
         if (agentRun == null)
         {
@@ -124,57 +118,5 @@ public class PlayControl : SingletonMonoBehaviour<PlayControl>
 
 	}
 
-	public void DrawGUI(int f){
-
-        if (!useOldUI)
-            return;
-
-		GUILayout.Window(80, new Rect(10, 10, 100, 150), (windowId) =>{
-			GUILayout.BeginVertical(GUILayout.ExpandWidth(true));
-
-			GUI.enabled = !agentRun.runner.Running && !agentRun.runner.Finished;
-			if(GUILayout.Button("Play")){
-				agentRun.Play ();
-			}
-
-			GUI.enabled = agentRun.runner.Running;
-			string text = "";
-			if(agentRun.runner.Paused){
-				text = "Un Pause";
-			}else{
-				text = "Pause";
-			}
-			if(GUILayout.Button(text)){
-				agentRun.Pause ();
-			}
-
-			GUI.enabled  = !agentRun.runner.Finished;
-			if(GUILayout.Button("Step")){
-				agentRun.Step ();
-			}
-
-			GUI.enabled = agentRun.runner.Running || agentRun.runner.Finished || !agentRun.runner.Started;
-			if(agentRun.runner.Finished || !agentRun.runner.Started){
-				text = "Rebuild";
-			}else{
-				text = "Finish";
-			}
-			if(GUILayout.Button(text)){
-				agentRun.Stop ();
-			}
-
-			GUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
-			float duration = agentRun.runner.Weight;
-			duration = GUILayout.HorizontalSlider(duration, 0f, 1f, GUILayout.ExpandWidth(true));
-			duration = ((int)(duration * 100))/100f;
-			agentRun.runner.Weight = duration;
-			GUILayout.Label(string.Format("{0:f2}",duration), GUILayout.MaxWidth(20));
-			GUILayout.EndHorizontal();
-
-
-			GUI.enabled = true;
-			GUILayout.EndVertical();
-		},"Play Control");
-	}
 	
 }

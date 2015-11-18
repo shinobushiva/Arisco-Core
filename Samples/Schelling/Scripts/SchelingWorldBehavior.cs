@@ -21,8 +21,8 @@ public class SchelingWorldBehavior : WorldBehavior
 	void Initialize ()
 	{	
 
-		int num = AriscoGUI.Instance.Get<int> ("Num", 8);
-		float rateToRemove = AriscoGUI.Instance.Get<float> ("Rate to Remove", 0.25f);
+		int num = 8;
+		float rateToRemove = 0.25f;
 		int numToRemove = (int)(num * num * rateToRemove);
 
 		Camera.main.transform.position = new Vector3 (0, num, 0);
@@ -84,8 +84,8 @@ public class SchelingWorldBehavior : WorldBehavior
 	void Begin ()
 	{
 
-		rate = AriscoGUI.Instance.Get<float> ("Community Index", 0.66f);
-		if (AriscoGUI.Instance.Get<bool> ("Randomize Order", true)) {
+		rate = 0.66f;
+		if (true) {
             all = GetAllAgents<SchelingAgentBehavior>().OrderBy (x => Random.value).ToList ();
 		} else {
             all = GetAllAgents<SchelingAgentBehavior>();
@@ -103,7 +103,7 @@ public class SchelingWorldBehavior : WorldBehavior
         List<SchelingAgentBehavior> agents = all;
 
 		bool flag = false;
-		allAgentAtOnce = AriscoGUI.Instance.Get<bool> ("All Agents at Once", false);
+		allAgentAtOnce = false;
 	
 		while (!flag) {
             SchelingAgentBehavior agent = agents [counter++];

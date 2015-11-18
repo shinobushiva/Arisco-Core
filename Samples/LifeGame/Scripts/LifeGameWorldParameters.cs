@@ -9,13 +9,11 @@ public class LifeGameWorldParameters : WorldParameters {
     [Range(3, 100)]
     public int num = 20;
 
-    public bool torus;
+    public bool torus = false;
 
 	// Use this for initialization
 	void Start () {
-		AriscoGUI.Instance.FloatField ("rate", 0.5f, 0, 1f);
-		AriscoGUI.Instance.IntField ("num", 20, 3, 100);
-		AriscoGUI.Instance.BoolField("torus", false);
+
 	}
 
 }

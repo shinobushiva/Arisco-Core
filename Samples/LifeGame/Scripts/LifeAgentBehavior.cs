@@ -28,7 +28,7 @@ public class LifeAgentBehavior : ABehavior
 
 	public override void Initialize ()
 	{
-		float rate = AriscoGUI.Instance.Get<float> ("rate", 0.5f);
+		float rate = 0.5f;
 		Alive = (Random.Range (0f, 1f) > rate);
 	}
 

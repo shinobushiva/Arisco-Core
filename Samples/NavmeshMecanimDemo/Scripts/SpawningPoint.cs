@@ -3,6 +3,8 @@ using System.Collections;
 
 public class SpawningPoint : MonoBehaviour {
 
+	public bool spawnHere = true;
+
 	// Use this for initialization
 	void Start () {
 	

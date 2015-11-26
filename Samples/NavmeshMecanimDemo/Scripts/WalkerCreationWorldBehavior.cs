@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 
+
 public class WalkerCreationWorldBehavior : WorldBehavior
 {
 	public int number = 1000;
@@ -24,18 +25,18 @@ public class WalkerCreationWorldBehavior : WorldBehavior
 			AAgent pref = factory.GetAWalker ();
 			AAgent a = CreateAgent (AttachedWorld, pref);
 
+			SpawningPoint[] sps2 = sps.Where(x => x.spawnHere).ToArray();
 		
-			int i = Random.Range (0, sps.Length);
+			int i = Random.Range (0, sps2.Length);
 			NavMeshAgent nma = a.GetComponent<NavMeshAgent> ();
 			if (nma)
 				nma.enabled = false;
 
-			a.transform.position = sps [i].transform.position;
+			a.transform.position = sps2 [i].transform.position;
+			a.transform.Translate(new Vector3(Random.Range(-3f, 3f), 0, Random.Range(-3f, 3f)));
 
 			if (nma)
 				nma.enabled = true;
-
-			a.transform.Translate(new Vector3(Random.Range(-3f, 3f), 0, Random.Range(-3f, 3f)));
 
 			num++;
 		}

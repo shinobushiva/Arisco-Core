@@ -9,7 +9,7 @@ public class Locomotion
 	private int m_DirectionId = 0;
 	public float m_SpeedDampTime = 0.1f;
 	public float m_AnguarSpeedDampTime = 0.25f;
-	public float m_DirectionResponseTime = 0.2f;
+	public float m_DirectionResponseTime = 0.1f;
     
 	public Locomotion (Animator animator)
 	{

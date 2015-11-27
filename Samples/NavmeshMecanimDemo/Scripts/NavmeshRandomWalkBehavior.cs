@@ -79,6 +79,8 @@ public class NavmeshRandomWalkBehavior : ABehavior
 			
 			Vector3 velocity = Quaternion.Inverse (transform.rotation) * agent.desiredVelocity;
 			float angle = Mathf.Atan2 (velocity.x, velocity.z) * 180.0f / Mathf.PI;
+			if(Mathf.Abs(angle) >= 45)
+				speed = 0;
 			
 			locomotion.Do (speed, angle);
 			

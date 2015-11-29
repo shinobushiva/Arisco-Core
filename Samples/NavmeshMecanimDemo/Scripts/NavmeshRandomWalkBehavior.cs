@@ -39,7 +39,7 @@ public class NavmeshRandomWalkBehavior : ABehavior
 	{
 		agent = GetComponent<NavMeshAgent> ();
 		agent.updateRotation = false;
-		agent.updatePosition = true;
+		agent.updatePosition = false;
 		
 		
 		sps = FindObjectsOfType<SpawningPoint> ();
@@ -79,8 +79,8 @@ public class NavmeshRandomWalkBehavior : ABehavior
 			
 			Vector3 velocity = Quaternion.Inverse (transform.rotation) * agent.desiredVelocity;
 			float angle = Mathf.Atan2 (velocity.x, velocity.z) * 180.0f / Mathf.PI;
-			if(Mathf.Abs(angle) >= 45)
-				speed = 0;
+//			if(Mathf.Abs(angle) >= 45)
+//				speed = 0;
 			
 			locomotion.Do (speed, angle);
 			

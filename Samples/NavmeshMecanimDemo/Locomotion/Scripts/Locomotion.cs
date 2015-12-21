@@ -21,14 +21,18 @@ public class Locomotion
 
 	}
 
+	public bool inIdle;
+	public bool inTurn;
+	public bool inWalkRun;
+
 	public void Do (float speed, float direction, NavMeshAgent agent)
 	{
 		AnimatorStateInfo state = m_Animator.GetCurrentAnimatorStateInfo (0);
 
 		bool inTransition = m_Animator.IsInTransition (0);
-		bool inIdle = state.IsName ("Locomotion.Idle");
-		bool inTurn = state.IsName ("Locomotion.TurnOnSpot"); //|| state.IsName ("Locomotion.PlantNTurnLeft") || state.IsName ("Locomotion.PlantNTurnRight");
-		bool inWalkRun = state.IsName ("Locomotion.WalkRun");
+		inIdle = state.IsName ("Locomotion.Idle");
+		inTurn = state.IsName ("Locomotion.TurnOnSpot"); //|| state.IsName ("Locomotion.PlantNTurnLeft") || state.IsName ("Locomotion.PlantNTurnRight");
+		inWalkRun = state.IsName ("Locomotion.WalkRun");
 
 		float speedDampTime = inIdle ? 0 : m_SpeedDampTime;
 		float angularSpeedDampTime = inWalkRun || inTransition ? m_AnguarSpeedDampTime : 0;

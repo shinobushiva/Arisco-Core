@@ -78,10 +78,22 @@ public class NavmeshRandomWalkBehavior : ABehavior
 			float angle = Mathf.Atan2 (velocity.x, velocity.z) * 180.0f / Mathf.PI;
 
 			locomotion.Do (speed, angle, agent);
+				
+		}
+	}
 
-
-
-			
+	void OnAnimatorMove ()
+	{
+//		print ("OnAnimatorMove()");
+		//only perform if walking
+		if (locomotion.inWalkRun) {
+			//set the navAgent's velocity to the velocity of the animation clip currently playing
+			agent.velocity = animator.deltaPosition / Time.deltaTime;
+			//set the rotation in the direction of movement
+			if(agent.desiredVelocity != Vector3.zero)
+				transform.rotation = Quaternion.LookRotation (agent.desiredVelocity);
+		} else {
+			agent.velocity = Vector3.zero;
 		}
 	}
 	

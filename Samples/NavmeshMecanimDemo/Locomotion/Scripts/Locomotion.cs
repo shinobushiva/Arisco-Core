@@ -25,7 +25,7 @@ public class Locomotion
 	public bool inTurn;
 	public bool inWalkRun;
 
-	public void Do (float speed, float direction, NavMeshAgent agent)
+	public void Do (float speed, float direction)
 	{
 		AnimatorStateInfo state = m_Animator.GetCurrentAnimatorStateInfo (0);
 
@@ -36,7 +36,7 @@ public class Locomotion
 
 		float speedDampTime = inIdle ? 0 : m_SpeedDampTime;
 		float angularSpeedDampTime = inWalkRun || inTransition ? m_AnguarSpeedDampTime : 0;
-		float directionDampTime = inTurn || inTransition ? 1000000 : 0;
+		float directionDampTime = inTurn || inTransition ? 100 : 0;
 
 		float angularSpeed = direction / m_DirectionResponseTime;
         

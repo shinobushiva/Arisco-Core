@@ -3,17 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(AAgent))]
-public class MecanimStepBehavior : ABehavior
+public class MecanimStepBehavior : AAnimatorBehavior
 {
-	protected Animator avatar;
 	protected NavMeshAgent agent;
-	
+
 	void Initialize ()
 	{
-		avatar = GetComponentInChildren<Animator> ();
-
-		avatar.StartPlayback ();
-		avatar.speed = 0;
 		recording = -1;
 	}
 
@@ -29,9 +24,9 @@ public class MecanimStepBehavior : ABehavior
 			if (recording >= 0 && recording < 1) {
 				recording++;
 			}else if (recording >= 1) {
-				avatar.StopRecording ();
-				avatar.StartPlayback ();
-				avatar.speed = 0;
+				Avatar.StopRecording ();
+				Avatar.StartPlayback ();
+				Avatar.speed = 0;
 				recording = -1;
 			}
 		}
@@ -40,9 +35,9 @@ public class MecanimStepBehavior : ABehavior
 	void Step ()
 	{
 		if (recording == -1) {
-			avatar.StopPlayback ();
-			avatar.StartRecording (1);
-			avatar.speed = 1;
+			Avatar.StopPlayback ();
+			Avatar.StartRecording (1);
+			Avatar.speed = 1;
 			recording = 0;
 		}
 
@@ -54,29 +49,9 @@ public class MecanimStepBehavior : ABehavior
 	void End ()
 	{
 		//avatar.SetFloat ("Speed", 0);
-		avatar.StartPlayback ();
-		avatar.speed = 0;
+		Avatar.StartPlayback ();
+		Avatar.speed = 0;
 		recording = -1;
 	}
-
-	/*
-	float avatarSpeed;
-	void FixedUpdate(){
-		if(!AttachedAgent.World)
-			return;
-
-		if(!AttachedAgent.World.timeTicking){
-			if(avatarSpeed == 0){
-				avatarSpeed = avatar.speed;
-			}
-			avatar.speed = 0;
-		}else{
-			if(avatarSpeed != 0){
-				avatar.speed = avatarSpeed;
-			}
-			avatarSpeed = 0;
-		}
-	}
-	*/
 
 }

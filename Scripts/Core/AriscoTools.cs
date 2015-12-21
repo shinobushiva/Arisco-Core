@@ -18,6 +18,7 @@ public class AriscoTools : MonoBehaviour
 
     public static AAgent CreateAgent (World world, AAgent agent, Vector3 pos)
 	{
+		agent.transform.position = pos;
 		AAgent a = Instantiate (agent) as AAgent;
         a.transform.parent = world.transform;
         a.transform.position = pos;

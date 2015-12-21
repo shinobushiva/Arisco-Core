@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StackDetector : ABehavior {
+public class StackDetector : AAnimatorBehavior {
 
 	public float timeToDetect = 5f;
 	public float minDistance = 3f;
@@ -14,8 +14,6 @@ public class StackDetector : ABehavior {
 
 	private Bounds bounds;
 
-	
-	protected Animator animator;
 	protected NavmeshRandomWalkBehavior navmeshWalker;
 
 
@@ -23,7 +21,6 @@ public class StackDetector : ABehavior {
 	void Begin () {
 		ccRadius = GetComponent<CharacterController> ().radius;
 		navmeshRadius = GetComponent<NavMeshAgent> ().radius;
-		animator = GetComponentInChildren<Animator> ();
 		navmeshWalker = GetComponent<NavmeshRandomWalkBehavior> ();
 	}
 	
@@ -52,7 +49,7 @@ public class StackDetector : ABehavior {
 
 			RaycastHit hit;
 			if(Physics.SphereCast(transform.position+Vector3.up*1.5f, 0.5f, transform.forward*0.5f,out hit, 1f)){
-				animator.SetFloat("Speed", 0);
+				Avatar.SetFloat("Speed", 0);
 			}
 			detectionStarted = false;
 			navmeshWalker.SetDestination(transform.position);
@@ -62,7 +59,7 @@ public class StackDetector : ABehavior {
 		{
 			RaycastHit hit;
 			if (Physics.SphereCast (transform.position + Vector3.up * 1.5f, 0.5f, transform.forward * 0.5f, out hit, 1f)) {
-				animator.SetFloat ("Speed", 0);
+				Avatar.SetFloat ("Speed", 0);
 			}
 		}
 

@@ -3,38 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class NavmeshRandomWalkBehavior : ABehavior
+public class NavmeshRandomWalkBehavior : AAnimatorBehavior
 {
 	private SpawningPoint[] sps;
 	private Transform target;
-	protected NavMeshAgent		agent;
-	protected Animator			animator;
-	protected Locomotion 		locomotion;
+	protected NavMeshAgent agent;
 	
 	public bool isOnNavMesh;
 	
 	public Transform initialDestination;
-	
-	
-	void Start(){
+
+	void Start ()
+	{
 		
 		agent = GetComponent<NavMeshAgent> ();
 		if (initialDestination)
 			agent.SetDestination (initialDestination.position);
 	}
-	
-	void Update(){
+
+	void Update ()
+	{
 		isOnNavMesh = agent.isOnNavMesh;
 		
 	}
-	
+
 	public void SetDestination (Vector3 pos)
 	{
 		if (agent.isOnNavMesh) {
 			agent.destination = pos;
 		}
 	}
-	
+
 	void Initialize ()
 	{
 		agent = GetComponent<NavMeshAgent> ();
@@ -43,29 +42,21 @@ public class NavmeshRandomWalkBehavior : ABehavior
 		
 		
 		sps = FindObjectsOfType<SpawningPoint> ();
+
+
 	}
-	
+
 	void Begin ()
 	{
-		//SpawningPoint sp = sps.OrderBy (x => (Vector3.Distance (x.transform.position, transform.position))).ToArray () [0];
-		
-		animator = GetComponentInChildren<Animator> ();
-		locomotion = new Locomotion (animator);
 		target = transform;
-		//		SetDestination (target.position);
 	}
 
 	protected void SetupAgentLocomotion ()
 	{
 		
-		//		if (newTarget && !AgentDone ()) {
-		//			newTarget = false;
-		//			return;
-		//		}
-		
 		if (AgentDone ()) {
-			locomotion.Do (0, 0, agent);
-			SpawningPoint[] orderd = sps.OrderBy(x=>Vector3.Distance(x.transform.position, transform.position)).ToArray();
+			AvatarLocomotion.Do (0, 0);
+			SpawningPoint[] orderd = sps.OrderBy (x => Vector3.Distance (x.transform.position, transform.position)).ToArray ();
 			
 			target = orderd [Random.Range (1, orderd.Length)].transform;
 			SetDestination (target.position);
@@ -77,7 +68,7 @@ public class NavmeshRandomWalkBehavior : ABehavior
 			Vector3 velocity = Quaternion.Inverse (transform.rotation) * agent.desiredVelocity;
 			float angle = Mathf.Atan2 (velocity.x, velocity.z) * 180.0f / Mathf.PI;
 
-			locomotion.Do (speed, angle, agent);
+			AvatarLocomotion.Do (speed, angle);
 				
 		}
 	}
@@ -85,18 +76,27 @@ public class NavmeshRandomWalkBehavior : ABehavior
 	void OnAnimatorMove ()
 	{
 //		print ("OnAnimatorMove()");
+		if (!AttachedAgent.Began) {
+			if(agent != null)
+				agent.velocity = Vector3.zero;
+			return;
+		}
+		
 		//only perform if walking
-		if (locomotion.inWalkRun) {
+		if (AvatarLocomotion.inWalkRun) {
 			//set the navAgent's velocity to the velocity of the animation clip currently playing
-			agent.velocity = animator.deltaPosition / Time.deltaTime;
+			agent.velocity = Avatar.deltaPosition / Time.deltaTime;
 			//set the rotation in the direction of movement
-			if(agent.desiredVelocity != Vector3.zero)
+			if (agent.desiredVelocity != Vector3.zero)
 				transform.rotation = Quaternion.LookRotation (agent.desiredVelocity);
-		} else {
+		}else if (AvatarLocomotion.inTurn){
+			if (agent.desiredVelocity != Vector3.zero)
+				transform.rotation = Quaternion.LookRotation (agent.desiredVelocity);
+		}else {
 			agent.velocity = Vector3.zero;
 		}
 	}
-	
+
 	protected bool AgentDone ()
 	{
 		if (!agent.isOnNavMesh)
@@ -104,28 +104,17 @@ public class NavmeshRandomWalkBehavior : ABehavior
 		
 		return !agent.pathPending && AgentStopping ();
 	}
-	
+
 	protected bool AgentStopping ()
 	{
 		return agent.remainingDistance <= agent.stoppingDistance;
 	}
 	
-	//	void Update(){
-	//		if (AttachedAgent.World && !AttachedAgent.World.timeTicking) {
-	//			agent.updatePosition = false;
-	//			agent.Stop();
-	//		} else {
-	//			agent.updatePosition = true;
-	//			agent.Resume();
-	//
-	//		}
-	//	}
-	
 	void Step ()
 	{	
 		SetupAgentLocomotion ();
 	}
-	
+
 	void Commit ()
 	{
 		

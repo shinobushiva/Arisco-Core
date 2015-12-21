@@ -39,7 +39,7 @@ public class NavmeshRandomWalkBehavior : ABehavior
 	{
 		agent = GetComponent<NavMeshAgent> ();
 		agent.updateRotation = false;
-		agent.updatePosition = false;
+		agent.updatePosition = true;
 		
 		
 		sps = FindObjectsOfType<SpawningPoint> ();
@@ -49,14 +49,12 @@ public class NavmeshRandomWalkBehavior : ABehavior
 	{
 		//SpawningPoint sp = sps.OrderBy (x => (Vector3.Distance (x.transform.position, transform.position))).ToArray () [0];
 		
-		animator = GetComponent<Animator> ();
+		animator = GetComponentInChildren<Animator> ();
 		locomotion = new Locomotion (animator);
 		target = transform;
 		//		SetDestination (target.position);
 	}
-	
-	bool newTarget = false;
-	
+
 	protected void SetupAgentLocomotion ()
 	{
 		
@@ -65,24 +63,24 @@ public class NavmeshRandomWalkBehavior : ABehavior
 		//			return;
 		//		}
 		
-		if (!newTarget && AgentDone ()) {
-			locomotion.Do (0, 0);
+		if (AgentDone ()) {
+			locomotion.Do (0, 0, agent);
 			SpawningPoint[] orderd = sps.OrderBy(x=>Vector3.Distance(x.transform.position, transform.position)).ToArray();
 			
 			target = orderd [Random.Range (1, orderd.Length)].transform;
 			SetDestination (target.position);
-			
-			//			newTarget = true;
+
 		} else {
 			
 			float speed = agent.desiredVelocity.magnitude;
 			
 			Vector3 velocity = Quaternion.Inverse (transform.rotation) * agent.desiredVelocity;
 			float angle = Mathf.Atan2 (velocity.x, velocity.z) * 180.0f / Mathf.PI;
-//			if(Mathf.Abs(angle) >= 45)
-//				speed = 0;
-			
-			locomotion.Do (speed, angle);
+
+			locomotion.Do (speed, angle, agent);
+
+
+
 			
 		}
 	}

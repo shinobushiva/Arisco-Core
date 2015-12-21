@@ -23,7 +23,7 @@ public class StackDetector : ABehavior {
 	void Begin () {
 		ccRadius = GetComponent<CharacterController> ().radius;
 		navmeshRadius = GetComponent<NavMeshAgent> ().radius;
-		animator = GetComponent<Animator> ();
+		animator = GetComponentInChildren<Animator> ();
 		navmeshWalker = GetComponent<NavmeshRandomWalkBehavior> ();
 	}
 	

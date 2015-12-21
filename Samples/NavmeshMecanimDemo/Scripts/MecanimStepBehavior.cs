@@ -10,7 +10,7 @@ public class MecanimStepBehavior : ABehavior
 	
 	void Initialize ()
 	{
-		avatar = GetComponent<Animator> ();
+		avatar = GetComponentInChildren<Animator> ();
 
 		avatar.StartPlayback ();
 		avatar.speed = 0;

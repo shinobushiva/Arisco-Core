@@ -6,7 +6,7 @@ using System.Linq;
 public class FollowWalkBehavior : AAnimatorBehavior
 {
 	public Transform target;
-	protected NavMeshAgent agent;
+	protected UnityEngine.AI.NavMeshAgent agent;
 
 	public Vector3 offset;
 	
@@ -15,7 +15,7 @@ public class FollowWalkBehavior : AAnimatorBehavior
 	void Start ()
 	{
 		
-		agent = GetComponent<NavMeshAgent> ();
+		agent = GetComponent<UnityEngine.AI.NavMeshAgent> ();
 		agent.SetDestination (target.TransformPoint(offset));
 	}
 
@@ -34,7 +34,7 @@ public class FollowWalkBehavior : AAnimatorBehavior
 
 	void Initialize ()
 	{
-		agent = GetComponent<NavMeshAgent> ();
+		agent = GetComponent<UnityEngine.AI.NavMeshAgent> ();
 		agent.updateRotation = false;
 		agent.updatePosition = true;
 		

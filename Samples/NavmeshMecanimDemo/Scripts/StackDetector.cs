@@ -20,7 +20,7 @@ public class StackDetector : AAnimatorBehavior {
 	// Use this for initialization
 	void Begin () {
 		ccRadius = GetComponent<CharacterController> ().radius;
-		navmeshRadius = GetComponent<NavMeshAgent> ().radius;
+		navmeshRadius = GetComponent<UnityEngine.AI.NavMeshAgent> ().radius;
 		navmeshWalker = GetComponent<NavmeshRandomWalkBehavior> ();
 	}
 	
@@ -29,7 +29,7 @@ public class StackDetector : AAnimatorBehavior {
 
 		if (!detectionStarted) {
 			GetComponent<CharacterController> ().radius = ccRadius;
-			GetComponent<NavMeshAgent> ().radius = navmeshRadius;
+			GetComponent<UnityEngine.AI.NavMeshAgent> ().radius = navmeshRadius;
 
 			detectionStarted = true;
 			bounds = new Bounds (transform.position, Vector3.one);
@@ -45,7 +45,7 @@ public class StackDetector : AAnimatorBehavior {
 
 		if (Time.time > detectionStartTime + timeToDetect) {
 			GetComponent<CharacterController> ().radius = .1f;
-			GetComponent<NavMeshAgent> ().radius = .1f;
+			GetComponent<UnityEngine.AI.NavMeshAgent> ().radius = .1f;
 
 			RaycastHit hit;
 			if(Physics.SphereCast(transform.position+Vector3.up*1.5f, 0.5f, transform.forward*0.5f,out hit, 1f)){

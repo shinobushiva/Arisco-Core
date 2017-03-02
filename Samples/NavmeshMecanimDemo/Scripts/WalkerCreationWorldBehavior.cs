@@ -28,7 +28,7 @@ public class WalkerCreationWorldBehavior : WorldBehavior
 			SpawningPoint[] sps2 = sps.Where(x => x.spawnHere).ToArray();
 		
 			int i = Random.Range (0, sps2.Length);
-			NavMeshAgent nma = a.GetComponent<NavMeshAgent> ();
+			UnityEngine.AI.NavMeshAgent nma = a.GetComponent<UnityEngine.AI.NavMeshAgent> ();
 			if (nma)
 				nma.enabled = false;
 

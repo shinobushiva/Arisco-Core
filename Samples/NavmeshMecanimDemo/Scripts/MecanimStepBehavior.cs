@@ -5,7 +5,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(AAgent))]
 public class MecanimStepBehavior : AAnimatorBehavior
 {
-	protected NavMeshAgent agent;
+	protected UnityEngine.AI.NavMeshAgent agent;
 
 	void Initialize ()
 	{

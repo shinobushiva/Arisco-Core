@@ -44,7 +44,7 @@ public class NewSimulation : ScriptableWizard
 						string pp = newFolderPath + "/" + pname + "World.prefab";
 						AssetDatabase.CopyAsset (pWorld, pp);
 						AssetDatabase.Refresh ();
-						EditorApplication.SaveAssets();
+						AssetDatabase.SaveAssets();
 						GameObject g = (GameObject)AssetDatabase.LoadAssetAtPath (pp, typeof(GameObject));
 						GameObject w = (GameObject)PrefabUtility.InstantiatePrefab (g);
 						world = w.GetComponent<World> ();
@@ -55,7 +55,7 @@ public class NewSimulation : ScriptableWizard
 						string pp = newFolderPath + "/" + pname + "Agent.prefab";
 						AssetDatabase.CopyAsset (pAgent, pp);
 						AssetDatabase.Refresh ();
-						EditorApplication.SaveAssets();
+						AssetDatabase.SaveAssets();
 						GameObject g = (GameObject)AssetDatabase.LoadAssetAtPath (pp, typeof(GameObject));
 						GameObject a = (GameObject)PrefabUtility.InstantiatePrefab (g);
 						//Debug.Log (a.transform.parent);

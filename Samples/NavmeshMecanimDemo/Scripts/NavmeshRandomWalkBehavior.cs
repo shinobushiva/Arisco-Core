@@ -7,7 +7,7 @@ public class NavmeshRandomWalkBehavior : AAnimatorBehavior
 {
 	private SpawningPoint[] sps;
 	private Transform target;
-	protected NavMeshAgent agent;
+	protected UnityEngine.AI.NavMeshAgent agent;
 	
 	public bool isOnNavMesh;
 	
@@ -16,7 +16,7 @@ public class NavmeshRandomWalkBehavior : AAnimatorBehavior
 	void Start ()
 	{
 		
-		agent = GetComponent<NavMeshAgent> ();
+		agent = GetComponent<UnityEngine.AI.NavMeshAgent> ();
 		if (initialDestination)
 			agent.SetDestination (initialDestination.position);
 	}
@@ -36,7 +36,7 @@ public class NavmeshRandomWalkBehavior : AAnimatorBehavior
 
 	void Initialize ()
 	{
-		agent = GetComponent<NavMeshAgent> ();
+		agent = GetComponent<UnityEngine.AI.NavMeshAgent> ();
 		agent.updateRotation = false;
 		agent.updatePosition = true;
 		

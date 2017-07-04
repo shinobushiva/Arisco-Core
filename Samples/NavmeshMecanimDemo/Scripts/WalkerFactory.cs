@@ -7,4 +7,15 @@ public class WalkerFactory : MonoBehaviour
 	{
 		return null;
 	}
+
+	public virtual AAgent GetAWalker (int n)
+	{
+		return null;
+	}
+
+	public virtual bool HasAWalker(int n){
+		return false;
+	}
 }
+
+

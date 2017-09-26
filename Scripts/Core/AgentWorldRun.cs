@@ -10,6 +10,16 @@ public class AgentWorldRun : SingletonMonoBehaviour<AgentWorldRun>
 	[HideInInspector]
 	public CellAutomatonWorldRunner runner;
 	private GameObject worldCopy;
+
+	public float sleepTime = 0;
+	public float SleepTime {
+		set {
+			sleepTime = value;
+		}
+		get {
+			return sleepTime;
+		}
+	}
 	
 	public IEnumerator Start ()
 	{

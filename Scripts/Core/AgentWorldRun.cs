@@ -11,10 +11,12 @@ public class AgentWorldRun : SingletonMonoBehaviour<AgentWorldRun>
 	public CellAutomatonWorldRunner runner;
 	private GameObject worldCopy;
 
-	public float sleepTime = 0;
+	private float sleepTime = 0;
 	public float SleepTime {
 		set {
 			sleepTime = value;
+			if(runner)
+				runner.Weight = sleepTime;
 		}
 		get {
 			return sleepTime;
@@ -25,6 +27,7 @@ public class AgentWorldRun : SingletonMonoBehaviour<AgentWorldRun>
 	{
 		GameObject go = new GameObject ("CellAutomatonWorldRunner");
 		runner = go.AddComponent<CellAutomatonWorldRunner> ();
+		runner.Weight = sleepTime;
 		yield return StartCoroutine (Init ());
 	}
 	
@@ -102,12 +105,14 @@ public class AgentWorldRun : SingletonMonoBehaviour<AgentWorldRun>
 	{
 		if (!gameObject.activeSelf)
 			return;
-
+		
 		runner.Pause (!runner.Paused);
+		runner.Weight = sleepTime;
 	}
 
 	public void Step ()
 	{
+
 		if (!gameObject.activeSelf)
 			return;
 
@@ -116,6 +121,7 @@ public class AgentWorldRun : SingletonMonoBehaviour<AgentWorldRun>
 			runner.Pause (true);
 		} else {
 			runner.Pause (true);
+			runner.Weight = 0;
 			runner.OneStep ();
 		}
 	}
